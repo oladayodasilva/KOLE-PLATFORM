@@ -3,28 +3,31 @@ package com.kole.platform.integration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClient;
 
-@org.springframework.boot.test.context.SpringBootTest(
-    webEnvironment = WebEnvironment.RANDOM_PORT
-)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class HealthEndpointIntegrationTest
     extends IntegrationTestSupport {
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+    @LocalServerPort
+    private int port;
 
     @Test
     void healthEndpointReturnsSuccess() {
-        ResponseEntity<String> response =
-            restTemplate.getForEntity(
-                "/api/v1/health",
-                String.class
-            );
+        RestClient restClient = RestClient.builder()
+            .baseUrl("http://localhost:" + port)
+            .build();
+
+        ResponseEntity<String> response = restClient
+            .get()
+            .uri("/api/v1/health")
+            .retrieve()
+            .toEntity(String.class);
 
         assertThat(response.getStatusCode())
             .isEqualTo(HttpStatus.OK);

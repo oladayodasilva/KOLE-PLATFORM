@@ -22,21 +22,21 @@
     <description>KÓLÉ circular economy platform backend</description>
 
     <properties>
-    	<java.version>21</java.version>
-    	<testcontainers.version>1.21.4</testcontainers.version>
-	</properties>
+        <java.version>21</java.version>
+        <testcontainers.version>1.21.4</testcontainers.version>
+    </properties>
 
-	<dependencyManagement>
-    	<dependencies>
-        	<dependency>
-            	<groupId>org.testcontainers</groupId>
-            	<artifactId>testcontainers-bom</artifactId>
-            	<version>${testcontainers.version}</version>
-            	<type>pom</type>
-            	<scope>import</scope>
-        	</dependency>
-    	</dependencies>
-	</dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers-bom</artifactId>
+                <version>${testcontainers.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
@@ -161,13 +161,23 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Testcontainers -->
+        <!-- Spring Boot 4 test HTTP client -->
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-resttestclient</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring Boot Testcontainers integration -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Testcontainers modules -->
 
         <dependency>
             <groupId>org.testcontainers</groupId>
@@ -183,93 +193,93 @@
 
     </dependencies>
 
-<build>
+    <build>
 
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-        </resource>
-    </resources>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
-    <plugins>
+        <plugins>
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.3.1</version>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
 
-            <configuration>
-                <delimiters>
-                    <delimiter>@</delimiter>
-                </delimiters>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+                    </delimiters>
 
-                <useDefaultDelimiters>false</useDefaultDelimiters>
-                <encoding>UTF-8</encoding>
-            </configuration>
-        </plugin>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
 
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
 
-            <configuration>
-                <excludes>
-                    <exclude>
-                        <groupId>org.projectlombok</groupId>
-                        <artifactId>lombok</artifactId>
-                    </exclude>
-                </excludes>
-            </configuration>
-        </plugin>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
 
-            <executions>
+                <executions>
 
-                <execution>
-                    <id>default-compile</id>
-                    <phase>compile</phase>
+                    <execution>
+                        <id>default-compile</id>
+                        <phase>compile</phase>
 
-                    <goals>
-                        <goal>compile</goal>
-                    </goals>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
 
-                    <configuration>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </execution>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
 
-                <execution>
-                    <id>default-testCompile</id>
-                    <phase>test-compile</phase>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <phase>test-compile</phase>
 
-                    <goals>
-                        <goal>testCompile</goal>
-                    </goals>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
 
-                    <configuration>
-                        <annotationProcessorPaths>
-                            <path>
-                                <groupId>org.projectlombok</groupId>
-                                <artifactId>lombok</artifactId>
-                            </path>
-                        </annotationProcessorPaths>
-                    </configuration>
-                </execution>
+                        <configuration>
+                            <annotationProcessorPaths>
+                                <path>
+                                    <groupId>org.projectlombok</groupId>
+                                    <artifactId>lombok</artifactId>
+                                </path>
+                            </annotationProcessorPaths>
+                        </configuration>
+                    </execution>
 
-            </executions>
-        </plugin>
+                </executions>
+            </plugin>
 
-    </plugins>
+        </plugins>
 
-</build>
+    </build>
 
 </project>
