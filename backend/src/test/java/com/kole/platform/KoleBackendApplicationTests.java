@@ -1,12 +1,12 @@
 package com.kole.platform;
 
+import com.kole.platform.integration.IntegrationTestSupport;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
 @SpringBootTest
-class KoleBackendApplicationTests {
+class KoleBackendApplicationTests
+    extends IntegrationTestSupport {
 
     @Test
     void contextLoads() {

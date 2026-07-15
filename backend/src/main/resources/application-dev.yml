@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/kole_db}
+    url: ${DATABASE_URL:jdbc:postgresql://127.0.0.1:5433/kole_db}
     username: ${DATABASE_USERNAME:kole_user}
     password: ${DATABASE_PASSWORD:change_me_locally}
 
