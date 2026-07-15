@@ -4,6 +4,22 @@ spring:
     hibernate:
       ddl-auto: validate
 
+kole:
+  security:
+    jwt:
+      issuer: kole-platform-test
+      secret: dGVzdC1qd3Qtc2VjcmV0LXRoYXQtaXMtYXQtbGVhc3QtMzItYnl0ZXMtbG9uZw==
+      access-token-ttl: PT15M
+      refresh-token-ttl: P30D
+
+  bootstrap:
+    admin:
+      enabled: false
+      full-name: ""
+      email: ""
+      phone-number: ""
+      password: ""
+      
   flyway:
     enabled: true
     locations: classpath:db/migration

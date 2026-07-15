@@ -66,6 +66,7 @@ services:
       dockerfile: Dockerfile
     container_name: kole-backend
     restart: unless-stopped
+    
     environment:
       SPRING_PROFILES_ACTIVE: dev
       DATABASE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
@@ -74,6 +75,18 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
       PORT: 8080
+
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_ACCESS_TOKEN_TTL: ${JWT_ACCESS_TOKEN_TTL}
+      JWT_REFRESH_TOKEN_TTL: ${JWT_REFRESH_TOKEN_TTL}
+
+      BOOTSTRAP_ADMIN_ENABLED: "true"
+      BOOTSTRAP_ADMIN_FULL_NAME: "KÓLÉ Administrator"
+      BOOTSTRAP_ADMIN_EMAIL: "admin@kole.local"
+      BOOTSTRAP_ADMIN_PHONE_NUMBER: "+2348000000000"
+      BOOTSTRAP_ADMIN_PASSWORD: "ReplaceThisPassword123!"
+
     ports:
       - "8080:8080"
     depends_on:

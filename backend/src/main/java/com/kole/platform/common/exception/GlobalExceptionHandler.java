@@ -123,7 +123,8 @@ public class GlobalExceptionHandler {
         Exception exception
     ) {
         log.error(
-            "Unexpected application error",
+            "Unexpected application error requestId={}",
+            RequestContext.requestId(),
             exception
         );
 
