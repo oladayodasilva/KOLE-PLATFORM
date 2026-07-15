@@ -13,10 +13,15 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: backend-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Test backend
+  verify:
+    name: Verify backend
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
@@ -32,6 +37,9 @@ jobs:
       - name: Make Maven wrapper executable
         run: chmod +x backend/mvnw
 
-      - name: Run tests
+      - name: Run backend verification
         working-directory: backend
         run: ./mvnw --batch-mode clean verify
+
+      - name: Build backend container
+        run: docker build -t kole-backend:ci backend

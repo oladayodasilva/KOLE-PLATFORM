@@ -21,6 +21,10 @@ server:
   forward-headers-strategy: framework
 
 logging:
+  structured:
+    format:
+      console: ecs
+
   level:
     root: INFO
     com.kole.platform: INFO

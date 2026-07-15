@@ -1,12 +1,35 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:kole_test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
-    username: sa
-    password:
-
   jpa:
+    open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
 
+kole:
+  security:
+    jwt:
+      issuer: kole-platform-test
+      secret: dGVzdC1qd3Qtc2VjcmV0LXRoYXQtaXMtYXQtbGVhc3QtMzItYnl0ZXMtbG9uZw==
+      access-token-ttl: PT15M
+      refresh-token-ttl: P30D
+
+  bootstrap:
+    admin:
+      enabled: false
+      full-name: ""
+      email: ""
+      phone-number: ""
+      password: ""
+      
   flyway:
-    enabled: false
+    enabled: true
+    locations: classpath:db/migration
+
+  data:
+    redis:
+      repositories:
+        enabled: false
+
+logging:
+  level:
+    root: WARN
+    com.kole.platform: INFO
